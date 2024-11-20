@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Registration</title>
+
+    <!-- Internal CSS -->
+    <style>
+        /* General Body Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f8ff; /* Light blue background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Main container for both login and register */
+        .form-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 400px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #003366; /* Dark Blue for headings */
+        }
+
+        label {
+            color: #003366; /* Dark Blue for text labels */
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #003366; /* Dark Blue */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #005599; /* Lighter Blue on hover */
+        }
+
+        .switch-form {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .switch-form a {
+            color: #003366;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .switch-form a:hover {
+            text-decoration: underline;
+        }
+
+        /* Error message styling */
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Form Container -->
+    <div class="form-container" id="form-container">
+        <!-- Login Form -->
+        <div id="login-form">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <label for="login-email">Email:</label>
+                <input type="email" id="login-email" name="email" placeholder="Enter your email" required>
+                <div id="login-email-error" class="error"></div>
+
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" name="password"  placeholder="Enter your password" required>
+                <div id="login-password-error" class="error"></div>
+                <a href="home page.html">
+                    <button type="button">Login</button>
+                </a>
+                
+            </form>
+            <div class="switch-form">
+                Don't have an account? <a href="javascript:void(0)" onclick="switchToRegister()">Register here</a>
+            </div>
+        </div>
+
+        <!-- Registration Form -->
+        <div id="register-form" style="display: none;">
+            <h2>Register</h2>
+            <form id="registerForm">
+                <label for="register-name">Full Name:</label>
+                <input type="text" id="register-name" name="name" required placeholder="Enter your full name">
+                <div id="register-name-error" class="error"></div>
+
+                <label for="register-email">Email:</label>
+                <input type="email" id="register-email" name="email" required placeholder="Enter your email">
+                <div id="register-email-error" class="error"></div>
+
+                <label for="register-password">Password:</label>
+                <input type="password" id="register-password" name="password" required placeholder="Enter your password">
+                <div id="register-password-error" class="error"></div>
+
+                <button type="submit">Register</button>
+            </form>
+            <div class="switch-form">
+                Already have an account? <a href="javascript:void(0)" onclick="switchToLogin()">Login here</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript to Handle Form Switching and Validation -->
+    <script>
+        // Switch to the Register form
+        function switchToRegister() {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('register-form').style.display = 'block';
+        }
+
+        // Switch to the Login form
+        function switchToLogin() {
+            document.getElementById('register-form').style.display = 'none';
+            document.getElementById('login-form').style.display = 'block';
+        }
+
+        // Form validation for login
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            let email = document.getElementById('login-email').value;
+            let password = document.getElementById('login-password').value;
+            let isValid = true;
+
+            // Clear previous errors
+            document.getElementById('login-email-error').innerText = '';
+            document.getElementById('login-password-error').innerText = '';
+
+            // Email validation
+            if (!email) {
+                document.getElementById('email-error').innerText = 'Email is required.';
+                valid = false;
+            }
+
+            // Password validation
+            if (!password) {
+                document.getElementById('password-error').innerText = 'Password is required.';
+                valid = false;
+            }
+            
+            if (isValid) {
+                alert('Login Successful!');
+                // You can proceed with login logic (e.g., sending data to the server)
+            }
+        });
+
+        // Form validation for registration
+        document.getElementById('registerForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            let name = document.getElementById('register-name').value;
+            let email = document.getElementById('register-email').value;
+            let password = document.getElementById('register-password').value;
+            let isValid = true;
+
+            // Clear previous errors
+            document.getElementById('register-name-error').innerText = '';
+            document.getElementById('register-email-error').innerText = '';
+            document.getElementById('register-password-error').innerText = '';
+
+            // Validate name
+            if (!name) {
+                document.getElementById('register-name-error').innerText = 'Name is required.';
+                isValid = false;
+            }
+
+            // Validate email
+            if (!email || !email.includes('@')) {
+                document.getElementById('register-email-error').innerText = 'Please enter a valid email address.';
+                isValid = false;
+            }
+
+            // Validate password
+            if (!password || password.length < 6) {
+                document.getElementById('register-password-error').innerText = 'Password must be at least 6 characters long.';
+                isValid = false;
+            }
+
+            if (isValid) {
+                alert('Registration Successful!');
+                // You can proceed with registration logic (e.g., sending data to the server)
+            }
+        });
+    </script>
+</body>
+</html>
